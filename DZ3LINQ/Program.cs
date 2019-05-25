@@ -13,14 +13,14 @@ namespace DZ3LINQ
             string enter1 = "Davis, Clyne, Fonte, Hooiveld, Shaw, Davis, Schneiderlin, Cork, Lallana, Rodriguez, Lambert";
 
             string[] splitValues1 = enter1.Split(',');
-            int i = 1;
-            string p;
+            int counter = 1;
+            string intermediateString;
 
-            foreach (string s in splitValues1)
+            foreach (string splitValue in splitValues1)
             {
-                p =  i + "." + s;
-                splitValues1[i - 1] = p;
-                i++;
+                intermediateString =  counter + "." + splitValue;
+                splitValues1[counter - 1] = intermediateString;
+                counter++;
             }
 
             var result1 = splitValues1.Aggregate((current, next) => current + ", " + next);
@@ -34,19 +34,19 @@ namespace DZ3LINQ
             string[] splitValues2 = enter2.Split(';');
             List<string[]> list = new List<string[]>();
 
-            foreach(string s in splitValues2)
+            foreach(string splitValue in splitValues2)
             {
-                list.Add(s.Split(','));
+                list.Add(splitValue.Split(','));
             }
 
             List<Player> players = new List<Player>();
             string dateofbirth;
             string[] name;
 
-            foreach (string[] s in list)
+            foreach (string[] playerFields in list)
             {
-                name = s[0].Trim().Split(' ');
-                dateofbirth = s[1].Trim();
+                name = playerFields[0].Trim().Split(' ');
+                dateofbirth = playerFields[1].Trim(); 
                 players.Add(new Player() { Name = name[0], Surname = name[1], DateOfBirth = DateTime.Parse(dateofbirth) });
             }
 
@@ -65,14 +65,14 @@ namespace DZ3LINQ
             string[] time;
             List<int> time1 = new List<int>();
 
-            foreach(string s in splitValues3)
+            foreach(string splitValue in splitValues3)
             {
-                time = s.Split(':');
+                time = splitValue.Split(':');
                 time1.Add(int.Parse(time[0]) * 60 + int.Parse(time[1]));
             }
             int result3 = time1.Aggregate((current, next) => current + next);
-            TimeSpan t = TimeSpan.FromSeconds(result3);
-            Console.WriteLine("\n3:" + "\n" + t.Hours + ":" + t.Minutes + ":" + t.Seconds);
+            TimeSpan timeSpan = TimeSpan.FromSeconds(result3);
+            Console.WriteLine("\n3:" + "\n" + timeSpan.Hours + ":" + timeSpan.Minutes + ":" + timeSpan.Seconds);
             #endregion
 
 
